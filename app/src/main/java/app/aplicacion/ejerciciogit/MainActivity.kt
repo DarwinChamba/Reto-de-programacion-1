@@ -9,5 +9,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         print("RAMA MASTER")
         print("comentario uno en la rama proyecto")
+        print("juego 1")
     }
 }
