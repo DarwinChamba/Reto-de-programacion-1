@@ -7,8 +7,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        print("RAMA MASTER")
+
+
+        print("RAMA PROYECTO")
         print("comentario uno en la rama proyecto")
-        print("juego 1")
+        print("cambios proyecto 1")
+
     }
 }
