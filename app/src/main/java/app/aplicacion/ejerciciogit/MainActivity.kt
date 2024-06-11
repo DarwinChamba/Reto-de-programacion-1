@@ -10,5 +10,8 @@ class MainActivity : AppCompatActivity() {
         print("esta es una nueva version")
         print("segundo print ")
         print("tercer print")
+        print("comentario de stash")
+
+        print("comentario en la rama proyecto")
     }
 }
