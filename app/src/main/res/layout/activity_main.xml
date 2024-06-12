@@ -5,92 +5,128 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:layout_marginHorizontal="30dp"
+    android:background="#17226F"
     tools:context=".MainActivity">
+
     <TextView
         android:text="Juego:Adivinar Numero"
         android:textSize="30sp"
+        android:id="@+id/title"
+        android:background="@drawable/back_5"
         android:textAlignment="center"
-        android:layout_marginTop="20dp"
-        android:textColor="#1635E7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_marginVertical="20dp"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/vidasTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textSize="15sp"
-            android:text="Numero de vidas:"
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <ImageView
-            android:id="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@id/vidasTitle"
-            app:layout_constraintStart_toEndOf="@id/vidasTitle"
-            android:src="@drawable/tresvidas"
-            android:layout_width="100dp"
-            app:layout_constraintBottom_toBottomOf="@id/vidasTitle"
-            android:layout_height="30dp"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <Button
-        android:id="@+id/btnNumberRandom"
-        android:layout_marginVertical="20dp"
-        android:text="Generar numero Aletorio"
-        android:layout_width="match_parent"
-        android:textSize="19sp"
-        android:textStyle="bold"
         android:padding="10dp"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:text="Ingrese un numero"
-        android:layout_width="match_parent"
-        android:padding="5dp"
-        android:layout_height="wrap_content"/>
-
-
-
-    <EditText
-        android:id="@+id/myNumber"
-        android:hint="20"
-        android:textAlignment="center"
-        android:layout_marginVertical="10dp"
-        android:padding="10dp"
-        android:inputType="number"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <LinearLayout
+           android:id="@+id/container"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginHorizontal="30dp"
+           android:layout_marginTop="40dp"
+           android:orientation="vertical">
+
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginVertical="20dp">
+
+               <TextView
+                   android:id="@+id/vidasTitle"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="10dp"
+                   android:text="Numero de vidas:"
+                   android:textSize="25sp"
+                   android:textColor="@color/white"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+               <ImageView
+                   android:id="@+id/imageView"
+                   android:layout_width="100dp"
+                   android:layout_height="30dp"
+                   android:src="@drawable/tresvidas"
+                   app:layout_constraintBottom_toBottomOf="@id/vidasTitle"
+                   app:layout_constraintStart_toEndOf="@id/vidasTitle"
+                   app:layout_constraintTop_toTopOf="@id/vidasTitle" />
 
 
+           </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/btnVerificar"
-        android:text="Verificar"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/resultado"
-        android:layout_marginVertical="20dp"
-        android:padding="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Resultado"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+           <androidx.appcompat.widget.AppCompatButton
+               android:id="@+id/btnNumberRandom"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginVertical="20dp"
+               android:padding="15dp"
+               android:textColor="@color/black"
+               android:background="@drawable/back_6"
+               android:text="Generar numero Aletorio"
+               android:textSize="23sp"
+               android:textStyle="bold" />
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:padding="10dp"
+               android:textColor="@color/white"
+               android:textSize="25sp"
+               android:text="Ingrese un numero" />
+
+           <EditText
+               android:id="@+id/myNumber"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginVertical="10dp"
+               android:hint="20"
+               android:inputType="number"
+               android:padding="15dp"
+               android:backgroundTint="#E91E63"
+               android:textColor="@color/white"
+               android:textColorHint="@color/white"
+               android:textSize="30sp"
+               android:textAlignment="center" />
+
+           <androidx.appcompat.widget.AppCompatButton
+               android:id="@+id/btnVerificar"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Verificar"
+               android:padding="15dp"
+               android:background="@drawable/back_7"
+               android:textSize="23sp"
+               android:textStyle="bold" />
+
+           <TextView
+               android:id="@+id/showNumber"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:padding="10dp"
+               android:textColor="@color/white"
+               android:textSize="25sp"
+               android:textAlignment="center"
+               android:layout_marginTop="20dp"
+               android:text="Mostrar Numero Aleatorio" />
+
+           <TextView
+               android:id="@+id/showNumberRandom"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:padding="10dp"
+               android:textColor="@color/white"
+               android:textSize="30sp"
+               android:visibility="gone"
+               android:textAlignment="center"
+               android:layout_marginTop="20dp"
+               android:text="34" />
+
+       </LinearLayout>
+   </ScrollView>
 
 
 
