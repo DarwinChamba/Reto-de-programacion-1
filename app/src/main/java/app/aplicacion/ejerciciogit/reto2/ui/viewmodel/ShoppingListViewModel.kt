@@ -1,4 +1,4 @@
-package app.aplicacion.ejerciciogit.reto2.ui
+package app.aplicacion.ejerciciogit.reto2.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
