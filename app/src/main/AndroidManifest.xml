@@ -13,6 +13,12 @@
         android:theme="@style/Theme.EjercicioGit"
         tools:targetApi="31">
         <activity
+            android:name=".reto2.ui.ProgramingChallenge2"
+            android:exported="false" />
+        <activity
+            android:name=".MainApplication"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
