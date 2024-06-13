@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class ShoppingListViewModel(application: Application):AndroidViewModel(application) {
 
     private val repository:ShoppingListRepository
-    private val shoppingList:LiveData<List<ShoppingList>>
+    val shoppingList:LiveData<List<ShoppingList>>
 
     init {
         val dao=DataShoppingList.invoke(application).getShoopingList()
