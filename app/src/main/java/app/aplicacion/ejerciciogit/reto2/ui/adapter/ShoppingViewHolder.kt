@@ -11,12 +11,14 @@ class ShoppingViewHolder(view: View) :RecyclerView.ViewHolder(view){
 
     fun render(shoppingList: ShoppingList){
 
-        binding.cantidad.text=shoppingList.price.toString()
+        binding.price1.text=shoppingList.price.toString()
         binding.isCompleted.isChecked=shoppingList.isCompleted
         binding.hour.text=shoppingList.hour
         binding.date.text=shoppingList.date
         binding.name.text=shoppingList.name
-        binding.cantidad.text=shoppingList.number.toString()
+        binding.cantidad1.text=shoppingList.number.toString()
+        val totalPrecio=shoppingList.price* shoppingList.number
+        binding.total1.text=totalPrecio.toString()+" $"
 
     }
 

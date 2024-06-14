@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#17226F"
-    tools:context=".MainActivity">
+    tools:context=".reto1.MainActivity">
 
     <TextView
         android:text="Juego:Adivinar Numero"

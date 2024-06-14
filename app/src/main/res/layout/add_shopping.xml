@@ -28,14 +28,14 @@
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/number"
-            android:hint="3"
+            android:hint="NUmber: 3#"
             android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/price"
-            android:hint="3.45"
-            android:inputType="number"
+            android:hint="Price: 3.45$"
+            android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <Button

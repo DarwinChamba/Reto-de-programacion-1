@@ -1,4 +1,4 @@
-package app.aplicacion.ejerciciogit
+package app.aplicacion.ejerciciogit.reto1
 
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
@@ -6,13 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
+import app.aplicacion.ejerciciogit.R
 import app.aplicacion.ejerciciogit.databinding.ActivityMainBinding
 import java.util.Random
-import kotlin.jvm.internal.Intrinsics.Kotlin
 
 
 class MainActivity : AppCompatActivity() {

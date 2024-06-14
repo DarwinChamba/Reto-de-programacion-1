@@ -4,29 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bac_4"
     tools:context=".reto2.ui.view.ProgramingChallenge2">
+        <TextView
+            android:id="@+id/title"
+            android:text="Categorias"
+            android:padding="10dp"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerCategory"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/titleList"
+            android:text="Lista de Compras"
+            android:padding="10dp"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleList"
+            app:layout_constraintVertical_bias="0.0" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="64dp"
+            android:backgroundTint="#1675C1"
+            app:tint="#C90909"
+            android:layout_marginBottom="84dp"
+            android:src="@drawable/add_note"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:backgroundTint="#1675C1"
-        app:tint="#C90909"
-        android:layout_marginBottom="84dp"
-        android:src="@drawable/add_note"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

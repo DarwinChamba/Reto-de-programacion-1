@@ -3,4 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorPantalla">#0D2ACD</color>
+    <color name="verduras">#16EA1E</color>
+    <color name="frutas">#E10909</color>
+    <color name="viveres">#000</color>
+    <color name="limpieza">#F1DA0F</color>
+    <color name="cardSelected">#06F1DB</color>
+    <color name="cardNoSelected">#1231E0</color>
+
 </resources>

@@ -16,10 +16,11 @@
             android:name=".reto2.ui.view.ProgramingChallenge2"
             android:exported="false" />
         <activity
-            android:name=".MainApplication"
+
+            android:name=".reto1.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainApplication"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
