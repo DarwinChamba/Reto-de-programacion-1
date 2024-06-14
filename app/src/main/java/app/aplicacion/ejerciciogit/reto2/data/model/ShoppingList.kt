@@ -2,6 +2,7 @@ package app.aplicacion.ejerciciogit.reto2.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import app.aplicacion.ejerciciogit.reto2.sealed.CategoryShopping
 
 
 @Entity(tableName = "tableShoppingList")
@@ -13,5 +14,6 @@ data class ShoppingList(
     val price: Float,
     val isCompleted: Boolean = false,
     val hour: String,
-    val date: String
+    val date: String,
+    val category:CategoryShopping
 )

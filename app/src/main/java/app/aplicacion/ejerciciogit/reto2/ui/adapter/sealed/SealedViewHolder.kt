@@ -5,12 +5,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.aplicacion.ejerciciogit.R
 import app.aplicacion.ejerciciogit.databinding.ItemSealedBinding
-import app.aplicacion.ejerciciogit.reto2.sealed.ShoppingSealed
+import app.aplicacion.ejerciciogit.reto2.sealed.CategoryShopping
 
 class SealedViewHolder(view: View):RecyclerView.ViewHolder(view) {
     private val binding=ItemSealedBinding.bind(view)
 
-    fun renderCategory(sealed: ShoppingSealed,isSelected:((Int)->Unit)?){
+    fun renderCategory(sealed: CategoryShopping, isSelected:((Int)->Unit)?){
 
         itemView.setOnClickListener {
             isSelected?.invoke(layoutPosition)
@@ -28,22 +28,22 @@ class SealedViewHolder(view: View):RecyclerView.ViewHolder(view) {
 
 
       var color= when(sealed){
-            ShoppingSealed.ARTICULOSLIMPIEZA -> {
+            CategoryShopping.ARTICULOSLIMPIEZA -> {
 
                 binding.category.text="ARTICULOS DE LIMPIEZA"
                 ContextCompat.getColor(binding.category.context, R.color.limpieza)
             }
-            ShoppingSealed.FRUTAS ->{
+            CategoryShopping.FRUTAS ->{
 
                 binding.category.text="FRUTAS"
                 ContextCompat.getColor(binding.category.context, R.color.frutas)
             }
-            ShoppingSealed.VERDURAS -> {
+            CategoryShopping.VERDURAS -> {
 
                 binding.category.text="VERDURAS"
                 ContextCompat.getColor(binding.category.context, R.color.verduras)
             }
-            ShoppingSealed.VIVERES -> {
+            CategoryShopping.VIVERES -> {
 
                 binding.category.text="VIVERES"
                 ContextCompat.getColor(binding.category.context, R.color.viveres)

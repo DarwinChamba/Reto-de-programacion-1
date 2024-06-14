@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import java.util.concurrent.locks.Lock
 
-@Database(entities = [ShoppingList::class], version = 1, exportSchema = false)
+@Database(entities = [ShoppingList::class], version = 2, exportSchema = false)
+@TypeConverters(ClassConverters::class)
 
 abstract  class DataShoppingList : RoomDatabase(){
 
@@ -23,7 +25,7 @@ abstract  class DataShoppingList : RoomDatabase(){
         private fun createInstanceData(context: Context)=
             Room.databaseBuilder(context.applicationContext,
             DataShoppingList::class.java,
-            "shoppingDatabase").build()
+            "shoppingDatabase").fallbackToDestructiveMigration().build()
     }
 
 

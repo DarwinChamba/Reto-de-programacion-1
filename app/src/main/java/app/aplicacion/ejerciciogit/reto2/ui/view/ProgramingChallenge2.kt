@@ -4,22 +4,28 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.aplicacion.ejerciciogit.R
 import app.aplicacion.ejerciciogit.databinding.ActivityProgramingChallenge2Binding
 import app.aplicacion.ejerciciogit.reto2.data.model.ShoppingList
+import app.aplicacion.ejerciciogit.reto2.sealed.CategoryShopping
 import app.aplicacion.ejerciciogit.reto2.ui.adapter.ShoppingAdapter
 import app.aplicacion.ejerciciogit.reto2.ui.adapter.sealed.SealedAdapter
 import app.aplicacion.ejerciciogit.reto2.ui.viewmodel.ShoppingListViewModel
+import app.aplicacion.ejerciciogit.util.Constants
 import app.aplicacion.ejerciciogit.util.ListSealed
 import app.aplicacion.ejerciciogit.util.ToastT
 import app.aplicacion.ejerciciogit.util.changeColorWindow
 import app.aplicacion.ejerciciogit.util.getCurrentDate
 import app.aplicacion.ejerciciogit.util.getCurrentHour
+import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -64,6 +70,17 @@ class ProgramingChallenge2 : AppCompatActivity() {
         val price = dialog.findViewById<EditText>(R.id.price)
         val number = dialog.findViewById<EditText>(R.id.number)
         val btnAddingNewShopping = dialog.findViewById<Button>(R.id.btnAddShopping)
+        val spinner = dialog.findViewById<Spinner>(R.id.spinner)
+        val adapterr =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.getCategory())
+        spinner.adapter = adapterr
+        val position = spinner.selectedItemPosition
+        val category = when (position) {
+            0 -> CategoryShopping.ARTICULOSLIMPIEZA
+            1 -> CategoryShopping.FRUTAS
+            2 -> CategoryShopping.VERDURAS
+            else -> CategoryShopping.VIVERES
+        }
         btnAddingNewShopping.setOnClickListener {
             val newName = name.text.toString()
             val newPrice = price.text.toString()
@@ -74,9 +91,10 @@ class ProgramingChallenge2 : AppCompatActivity() {
             } else {
                 val shopping = ShoppingList(
                     0, newName, newNumber.toInt(), newPrice.toFloat(),
-                    false, getCurrentHour(), getCurrentDate()
+                    false, getCurrentHour(), getCurrentDate(), category
                 )
                 model.insertShooping(shopping)
+
                 ToastT("registration completed successfully")
             }
             dialog.dismiss()
@@ -106,8 +124,9 @@ class ProgramingChallenge2 : AppCompatActivity() {
             setHasFixedSize(true)
         }
     }
-    private fun cambiarColor(){
-        val color=R.color.limpieza
+
+    private fun cambiarColor() {
+        val color = R.color.limpieza
         changeColorWindow(color)
     }
 
