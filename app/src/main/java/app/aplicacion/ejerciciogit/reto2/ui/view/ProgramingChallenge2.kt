@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -15,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.aplicacion.ejerciciogit.R
 import app.aplicacion.ejerciciogit.databinding.ActivityProgramingChallenge2Binding
 import app.aplicacion.ejerciciogit.reto2.data.model.ShoppingList
-import app.aplicacion.ejerciciogit.reto2.sealed.CategoryShopping
 import app.aplicacion.ejerciciogit.reto2.ui.adapter.ShoppingAdapter
 import app.aplicacion.ejerciciogit.reto2.ui.adapter.sealed.SealedAdapter
 import app.aplicacion.ejerciciogit.reto2.ui.viewmodel.ShoppingListViewModel
@@ -25,9 +26,8 @@ import app.aplicacion.ejerciciogit.util.ToastT
 import app.aplicacion.ejerciciogit.util.changeColorWindow
 import app.aplicacion.ejerciciogit.util.getCurrentDate
 import app.aplicacion.ejerciciogit.util.getCurrentHour
-import java.lang.IllegalArgumentException
-import java.text.SimpleDateFormat
-import java.util.Calendar
+import app.aplicacion.ejerciciogit.reto2.sealed.CategoryShopping
+import app.aplicacion.ejerciciogit.reto2.sealed.CategoryShopping.*
 
 
 class ProgramingChallenge2 : AppCompatActivity() {
@@ -35,6 +35,8 @@ class ProgramingChallenge2 : AppCompatActivity() {
     private lateinit var model: ShoppingListViewModel
     private lateinit var cadapter: ShoppingAdapter
     private lateinit var adapterSealed: SealedAdapter
+    private lateinit var categoryShopping: CategoryShopping
+    var lista = mutableListOf<ShoppingList>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProgramingChallenge2Binding.inflate(layoutInflater)
@@ -48,18 +50,37 @@ class ProgramingChallenge2 : AppCompatActivity() {
         initRecyclerSealed()
         cardSelected()
         cambiarColor()
+
     }
 
-    private fun cardSelected() {
-        adapterSealed.onClickCardSelected {
-            ListSealed.getList()[it].isSelected = !ListSealed.getList()[it].isSelected
-            adapterSealed.notifyDataSetChanged()
+    private fun filterList() {
+
+        val categoryList = ListSealed.getList().filter { it.isSelected ==true }
+
+        if(!categoryList.isNullOrEmpty()){
+            var elementosSeleccionados = mutableListOf<ShoppingList>()
+            val newList = lista.filter { categoryList.contains(it.category) }
+            elementosSeleccionados.addAll(newList)
+            cadapter.diff.submitList(elementosSeleccionados)
+        }else{
+            cadapter.diff.submitList(lista)
         }
     }
+    private fun cardSelected() {
+        adapterSealed.onClickCardSelected {
+
+            ListSealed.getList()[it].isSelected = !ListSealed.getList()[it].isSelected
+            adapterSealed.notifyItemChanged(it)
+                filterList()
+        }
+    }
+
 
     private fun getAllLog() {
         model.shoppingList.observe(this, Observer {
             cadapter.diff.submitList(it)
+            lista.clear()
+            lista = it.toMutableList()
         })
     }
 
@@ -74,13 +95,28 @@ class ProgramingChallenge2 : AppCompatActivity() {
         val adapterr =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.getCategory())
         spinner.adapter = adapterr
-        val position = spinner.selectedItemPosition
-        val category = when (position) {
-            0 -> CategoryShopping.ARTICULOSLIMPIEZA
-            1 -> CategoryShopping.FRUTAS
-            2 -> CategoryShopping.VERDURAS
-            else -> CategoryShopping.VIVERES
+
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+
+                val category = Constants.getCategory()[position]
+
+                categoryShopping = when (category) {
+                    "VERDURAS" -> VERDURAS
+                    "VIVERES" -> VIVERES
+                    "FRUTAS" -> FRUTAS
+                    else -> ARTICULOSLIMPIEZA
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
         }
+
+
         btnAddingNewShopping.setOnClickListener {
             val newName = name.text.toString()
             val newPrice = price.text.toString()
@@ -91,9 +127,11 @@ class ProgramingChallenge2 : AppCompatActivity() {
             } else {
                 val shopping = ShoppingList(
                     0, newName, newNumber.toInt(), newPrice.toFloat(),
-                    false, getCurrentHour(), getCurrentDate(), category
+                    false, getCurrentHour(), getCurrentDate(), categoryShopping
                 )
                 model.insertShooping(shopping)
+                println(shopping)
+
 
                 ToastT("registration completed successfully")
             }

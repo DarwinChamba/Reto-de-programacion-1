@@ -27,7 +27,7 @@
                 android:id="@+id/titleCategory"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="Select: "
+                android:text="Category: "
                 android:textSize="18sp"
                 android:padding="10dp"
                 android:textStyle="bold"
