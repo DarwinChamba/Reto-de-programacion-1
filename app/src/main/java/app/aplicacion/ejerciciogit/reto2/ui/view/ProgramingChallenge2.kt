@@ -11,11 +11,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import app.aplicacion.ejerciciogit.R
 import app.aplicacion.ejerciciogit.databinding.ActivityProgramingChallenge2Binding
+import app.aplicacion.ejerciciogit.reto2.data.model.DeleteShopping
 import app.aplicacion.ejerciciogit.reto2.data.model.ShoppingList
 import app.aplicacion.ejerciciogit.reto2.ui.adapter.ShoppingAdapter
 import app.aplicacion.ejerciciogit.reto2.ui.adapter.sealed.SealedAdapter
@@ -28,6 +32,7 @@ import app.aplicacion.ejerciciogit.util.getCurrentDate
 import app.aplicacion.ejerciciogit.util.getCurrentHour
 import app.aplicacion.ejerciciogit.reto2.sealed.CategoryShopping
 import app.aplicacion.ejerciciogit.reto2.sealed.CategoryShopping.*
+import com.google.android.material.snackbar.Snackbar
 
 
 class ProgramingChallenge2 : AppCompatActivity() {
@@ -50,28 +55,52 @@ class ProgramingChallenge2 : AppCompatActivity() {
         initRecyclerSealed()
         cardSelected()
         cambiarColor()
+        deleteShopping()
 
+    }
+
+    private fun deleteShopping() {
+        val itemDelete = object : DeleteShopping() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val shopping = cadapter.diff.currentList[position]
+                model.deleteShooping(shopping)
+                Snackbar.make(binding.root, "registro eliminado con exito ", Snackbar.LENGTH_LONG)
+                    .apply {
+                        setAction("DESAHACER") {
+                            model.insertShooping(shopping)
+                        }
+                    }.show()
+
+
+            }
+
+        }
+        ItemTouchHelper(itemDelete).apply {
+            attachToRecyclerView(binding.recycler)
+        }
     }
 
     private fun filterList() {
 
-        val categoryList = ListSealed.getList().filter { it.isSelected ==true }
+        val categoryList = ListSealed.getList().filter { it.isSelected == true }
 
-        if(!categoryList.isNullOrEmpty()){
+        if (!categoryList.isNullOrEmpty()) {
             var elementosSeleccionados = mutableListOf<ShoppingList>()
             val newList = lista.filter { categoryList.contains(it.category) }
             elementosSeleccionados.addAll(newList)
             cadapter.diff.submitList(elementosSeleccionados)
-        }else{
+        } else {
             cadapter.diff.submitList(lista)
         }
     }
+
     private fun cardSelected() {
         adapterSealed.onClickCardSelected {
 
             ListSealed.getList()[it].isSelected = !ListSealed.getList()[it].isSelected
             adapterSealed.notifyItemChanged(it)
-                filterList()
+            filterList()
         }
     }
 
