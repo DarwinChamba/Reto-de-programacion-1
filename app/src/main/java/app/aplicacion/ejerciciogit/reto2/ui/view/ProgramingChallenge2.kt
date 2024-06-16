@@ -2,6 +2,7 @@ package app.aplicacion.ejerciciogit.reto2.ui.view
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
 import androidx.lifecycle.Observer
@@ -32,6 +34,7 @@ import app.aplicacion.ejerciciogit.util.getCurrentDate
 import app.aplicacion.ejerciciogit.util.getCurrentHour
 import app.aplicacion.ejerciciogit.reto2.sealed.CategoryShopping
 import app.aplicacion.ejerciciogit.reto2.sealed.CategoryShopping.*
+import app.aplicacion.ejerciciogit.ui.MainApplication
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -56,7 +59,131 @@ class ProgramingChallenge2 : AppCompatActivity() {
         cardSelected()
         cambiarColor()
         deleteShopping()
+        ObjectSelecte()
 
+    }
+
+    private fun ObjectSelecte() {
+        cadapter.onClickShoppingList { shoppingItem ->
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.add_shopping)
+            val title = dialog.findViewById<TextView>(R.id.titleUpdate)
+            val name = dialog.findViewById<EditText>(R.id.name)
+            val price = dialog.findViewById<EditText>(R.id.price)
+            val number = dialog.findViewById<EditText>(R.id.number)
+            val btnAddingNewShopping = dialog.findViewById<Button>(R.id.btnAddShopping)
+            val spinner = dialog.findViewById<Spinner>(R.id.spinner)
+            val adapterr =
+                ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.getCategory())
+            spinner.adapter = adapterr
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    p0: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long
+                ) {
+                    val category = Constants.getCategory()[position]
+
+                    categoryShopping = when (category) {
+                        "VERDURAS" -> VERDURAS
+                        "VIVERES" -> VIVERES
+                        "FRUTAS" -> FRUTAS
+                        else -> ARTICULOSLIMPIEZA
+                    }
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {}
+            }
+            title.setText("Update Shopping List")
+            name.setText(shoppingItem.name)
+            price.setText(shoppingItem.price.toString())
+            number.setText(shoppingItem.number.toString())
+            val category = when (shoppingItem.category) {
+                ARTICULOSLIMPIEZA -> "LIMPIEZA"
+                FRUTAS -> "FRUTAS"
+                VERDURAS -> "VERDURAS"
+                VIVERES -> "VIVERES"
+            }
+
+            val position = Constants.getCategory().indexOf(category)
+            spinner.setSelection(position)
+            btnAddingNewShopping.setText("Update")
+
+            btnAddingNewShopping.setOnClickListener {
+                val newName = name.text.toString()
+                val newPrice = price.text.toString()
+                val newNumber = number.text.toString()
+                if (newName.isNullOrEmpty() || newPrice.isNullOrEmpty() || newNumber.isNullOrEmpty()) {
+                    ToastT("required field")
+                } else {
+                    val updatedShoppingItem = ShoppingList(
+                        shoppingItem.id, newName, newNumber.toInt(), newPrice.toFloat(),
+                        false, getCurrentHour(), getCurrentDate(), categoryShopping
+                    )
+
+                    model.updateShooping(updatedShoppingItem)
+
+                }
+                dialog.dismiss()
+            }
+            dialog.show()
+
+        }
+    }
+
+
+    private fun addignNewShopping() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.add_shopping)
+        val title = dialog.findViewById<TextView>(R.id.titleUpdate)
+        val name = dialog.findViewById<EditText>(R.id.name)
+        val price = dialog.findViewById<EditText>(R.id.price)
+        val number = dialog.findViewById<EditText>(R.id.number)
+        val btnAddingNewShopping = dialog.findViewById<Button>(R.id.btnAddShopping)
+        val spinner = dialog.findViewById<Spinner>(R.id.spinner)
+        val adapterr =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.getCategory())
+        spinner.adapter = adapterr
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+
+                val category = Constants.getCategory()[position]
+
+                categoryShopping = when (category) {
+                    "VERDURAS" -> VERDURAS
+                    "VIVERES" -> VIVERES
+                    "FRUTAS" -> FRUTAS
+                    else -> ARTICULOSLIMPIEZA
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+        }
+        btnAddingNewShopping.setOnClickListener {
+            val newName = name.text.toString()
+            val newPrice = price.text.toString()
+            val newNumber = number.text.toString()
+            if (newName.isNullOrEmpty() || newPrice.isNullOrEmpty() || newNumber.isNullOrEmpty()) {
+                ToastT("requiered field")
+
+            } else {
+                val shopping = ShoppingList(
+                    0, newName, newNumber.toInt(), newPrice.toFloat(),
+                    false, getCurrentHour(), getCurrentDate(), categoryShopping
+                )
+                model.insertShooping(shopping)
+
+
+
+                ToastT("registration completed successfully")
+            }
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun deleteShopping() {
@@ -113,62 +240,6 @@ class ProgramingChallenge2 : AppCompatActivity() {
         })
     }
 
-    private fun addignNewShopping() {
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.add_shopping)
-        val name = dialog.findViewById<EditText>(R.id.name)
-        val price = dialog.findViewById<EditText>(R.id.price)
-        val number = dialog.findViewById<EditText>(R.id.number)
-        val btnAddingNewShopping = dialog.findViewById<Button>(R.id.btnAddShopping)
-        val spinner = dialog.findViewById<Spinner>(R.id.spinner)
-        val adapterr =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.getCategory())
-        spinner.adapter = adapterr
-
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-
-                val category = Constants.getCategory()[position]
-
-                categoryShopping = when (category) {
-                    "VERDURAS" -> VERDURAS
-                    "VIVERES" -> VIVERES
-                    "FRUTAS" -> FRUTAS
-                    else -> ARTICULOSLIMPIEZA
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-
-        }
-
-
-        btnAddingNewShopping.setOnClickListener {
-            val newName = name.text.toString()
-            val newPrice = price.text.toString()
-            val newNumber = number.text.toString()
-            if (newName.isNullOrEmpty() || newPrice.isNullOrEmpty() || newNumber.isNullOrEmpty()) {
-                ToastT("requiered field")
-
-            } else {
-                val shopping = ShoppingList(
-                    0, newName, newNumber.toInt(), newPrice.toFloat(),
-                    false, getCurrentHour(), getCurrentDate(), categoryShopping
-                )
-                model.insertShooping(shopping)
-                println(shopping)
-
-
-                ToastT("registration completed successfully")
-            }
-            dialog.dismiss()
-        }
-
-        dialog.show()
-    }
 
     private fun initRecycler() {
         cadapter = ShoppingAdapter()

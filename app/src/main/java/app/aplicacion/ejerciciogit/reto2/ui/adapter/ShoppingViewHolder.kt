@@ -12,7 +12,7 @@ class ShoppingViewHolder(view: View) :RecyclerView.ViewHolder(view){
 
     private val binding=ShoppingItemBinding.bind(view)
 
-    fun render(shoppingList: ShoppingList,listener:((Int)->Unit)?){
+    fun render(shoppingList: ShoppingList,listener:((ShoppingList)->Unit)?){
 
         binding.price1.text=shoppingList.price.toString()
         binding.isCompleted.isChecked=shoppingList.isCompleted
@@ -25,7 +25,7 @@ class ShoppingViewHolder(view: View) :RecyclerView.ViewHolder(view){
 
 
         itemView.setOnClickListener {
-            listener?.invoke(layoutPosition)
+            listener?.invoke(shoppingList)
         }
         val color =when(shoppingList.category){
 

@@ -14,7 +14,7 @@
         android:orientation="vertical">
         <TextView
             android:id="@+id/titleUpdate"
-            android:text="Adding new shopping"
+            android:text="Updateshopping"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:textSize="20sp"
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"/>
         <Button
             android:id="@+id/btnAddShopping"
-            android:text="Added"
+            android:text="Update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </androidx.appcompat.widget.LinearLayoutCompat>

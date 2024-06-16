@@ -29,13 +29,13 @@ class ShoppingAdapter:RecyclerView.Adapter<ShoppingViewHolder>() {
 
     override fun getItemCount()=diff.currentList.size
 
-    private var selectedPosition:((Int)->Unit)?=null
+    private var selectedPosition:((ShoppingList)->Unit)?=null
 
     override fun onBindViewHolder(holder: ShoppingViewHolder, position: Int) {
         holder.render(diff.currentList[position],selectedPosition)
     }
 
-    fun onClickSelectedPositionFilter(listener:((Int)->Unit)?){
+    fun onClickShoppingList(listener:((ShoppingList)->Unit)?){
         selectedPosition=listener
     }
 
